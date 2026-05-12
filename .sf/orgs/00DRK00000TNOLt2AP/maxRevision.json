@@ -1,6 +1,6 @@
 {
     "fileVersion": 0,
-    "serverMaxRevisionCounter": 270,
+    "serverMaxRevisionCounter": 283,
     "sourceMembers": {
         "ActivationPlatform__cdpactvstrgptnr__Meta_Facebook": {
             "memberType": "ActivationPlatform",
@@ -521,6 +521,42 @@
         "PermissionSet__Opportunity_Agent303662455_Permissions": {
             "memberType": "PermissionSet",
             "serverRevisionCounter": 269,
+            "lastRetrievedFromServer": null,
+            "isNameObsolete": false
+        },
+        "Profile__Admin": {
+            "memberType": "Profile",
+            "serverRevisionCounter": 278,
+            "lastRetrievedFromServer": null,
+            "isNameObsolete": false
+        },
+        "ApexClass__CreateCustomObjectAction": {
+            "memberType": "ApexClass",
+            "serverRevisionCounter": 279,
+            "lastRetrievedFromServer": null,
+            "isNameObsolete": false
+        },
+        "ApexClass__CreateCustomObjectActionTest": {
+            "memberType": "ApexClass",
+            "serverRevisionCounter": 280,
+            "lastRetrievedFromServer": null,
+            "isNameObsolete": false
+        },
+        "ApexClass__GetOpportunityFieldsAction": {
+            "memberType": "ApexClass",
+            "serverRevisionCounter": 281,
+            "lastRetrievedFromServer": null,
+            "isNameObsolete": false
+        },
+        "ApexClass__GetOpportunityFieldsActionTest": {
+            "memberType": "ApexClass",
+            "serverRevisionCounter": 282,
+            "lastRetrievedFromServer": null,
+            "isNameObsolete": false
+        },
+        "FieldSet__Opportunity.Agentforce_Create_Fields": {
+            "memberType": "FieldSet",
+            "serverRevisionCounter": 283,
             "lastRetrievedFromServer": null,
             "isNameObsolete": false
         }
