@@ -1,7 +1,36 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<GenAiPlugin xmlns="http://soap.sforce.com/2006/04/metadata">
+<GenAiPlugin xmlns="http://soap.sforce.com/2006/04/metadata" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+    <canEscalate>false</canEscalate>
+    <description>Helps users create new Opportunity records by collecting required field information and validating inputs. Handles requests like &quot;create an opportunity&quot;, &quot;add a new deal&quot;, or &quot;I need to log a sales opportunity&quot;.</description>
     <developerName>Manage_Opportunities</developerName>
+    <genAiFunctions>
+        <functionName>Create_Opportunity</functionName>
+    </genAiFunctions>
+    <genAiFunctions>
+        <functionName>Get_Opportunity_Fields</functionName>
+    </genAiFunctions>
+    <genAiPluginInstructions>
+        <description>Step 1: Call &quot;Get Opportunity Fields&quot; action with                         
+  configurationName=&quot;Default&quot; to retrieve field metadata.                   
+                                                                            
+  Step 2: For each required field, ask the user for the value. Use the field
+   label from metadata. For picklist fields, present the valid options.     
+  Validate date formats (YYYY-MM-DD) and numeric values.               
+                                                                            
+  Step 3: When all required fields are collected, call &quot;Create Opportunity&quot;
+  action with configurationName=&quot;Default&quot; and fieldValuesJson containing all
+   collected values.                                                        
+                                                                            
+  Step 4: On success, confirm creation with the record ID. On failure,
+  display the error message and ask for corrected values.</description>
+        <developerName>instruction_0_1778628141437</developerName>
+        <language xsi:nil="true"/>
+        <masterLabel>instruction_0_1778628141437</masterLabel>
+        <sortOrder>0</sortOrder>
+    </genAiPluginInstructions>
+    <language>en_US</language>
+    <localDeveloperName>Manage_Opportunities</localDeveloperName>
     <masterLabel>Manage Opportunities</masterLabel>
     <pluginType>Topic</pluginType>
-    <status>Active</status>
+    <scope>Your job is to create Opportunity records for users. First, retrieve the required fields from the configured Field Set. Then, ask the user for each required field value, validating inputs against field metadata (dates as YYYY-MM-DD, numbers for currency, picklist values only). Once all required fields are collected, create the Opportunity and confirm with the record ID. If creation fails, surface the error and collect corrected values.</scope>
 </GenAiPlugin>
