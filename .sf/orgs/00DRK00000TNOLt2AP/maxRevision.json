@@ -1,0 +1,528 @@
+{
+    "fileVersion": 0,
+    "serverMaxRevisionCounter": 270,
+    "sourceMembers": {
+        "ActivationPlatform__cdpactvstrgptnr__Meta_Facebook": {
+            "memberType": "ActivationPlatform",
+            "serverRevisionCounter": 129,
+            "lastRetrievedFromServer": null,
+            "isNameObsolete": false
+        },
+        "PolicyRuleDefinitionSet__AllDataAccessRuleset": {
+            "memberType": "PolicyRuleDefinitionSet",
+            "serverRevisionCounter": 133,
+            "lastRetrievedFromServer": null,
+            "isNameObsolete": false
+        },
+        "PolicyRuleDefinition__AllDataAccessRule": {
+            "memberType": "PolicyRuleDefinition",
+            "serverRevisionCounter": 135,
+            "lastRetrievedFromServer": null,
+            "isNameObsolete": false
+        },
+        "PermissionSet__sfdcInternalInt__sfdc_a360_sfcrm_data_extract": {
+            "memberType": "PermissionSet",
+            "serverRevisionCounter": 140,
+            "lastRetrievedFromServer": null,
+            "isNameObsolete": false
+        },
+        "DataSourceTenant__SalesforceDotCom_Home": {
+            "memberType": "DataSourceTenant",
+            "serverRevisionCounter": 141,
+            "lastRetrievedFromServer": null,
+            "isNameObsolete": false
+        },
+        "InternalDataConnector__SalesforceDotCom_Home": {
+            "memberType": "InternalDataConnector",
+            "serverRevisionCounter": 142,
+            "lastRetrievedFromServer": null,
+            "isNameObsolete": false
+        },
+        "AuthProvider__GoogleSegmentIntelligence": {
+            "memberType": "AuthProvider",
+            "serverRevisionCounter": 143,
+            "lastRetrievedFromServer": null,
+            "isNameObsolete": false
+        },
+        "AuthProvider__FacebookSegmentIntelligence": {
+            "memberType": "AuthProvider",
+            "serverRevisionCounter": 144,
+            "lastRetrievedFromServer": null,
+            "isNameObsolete": false
+        },
+        "AuthProvider__LinkedInEmiLinkedInAds": {
+            "memberType": "AuthProvider",
+            "serverRevisionCounter": 145,
+            "lastRetrievedFromServer": null,
+            "isNameObsolete": false
+        },
+        "AuthProvider__MicrosoftEmiBingAds": {
+            "memberType": "AuthProvider",
+            "serverRevisionCounter": 146,
+            "lastRetrievedFromServer": null,
+            "isNameObsolete": false
+        },
+        "AuthProvider__TwitterEmiXAds": {
+            "memberType": "AuthProvider",
+            "serverRevisionCounter": 147,
+            "lastRetrievedFromServer": null,
+            "isNameObsolete": false
+        },
+        "AuthProvider__SalesforceEmiTikTokAds": {
+            "memberType": "AuthProvider",
+            "serverRevisionCounter": 148,
+            "lastRetrievedFromServer": null,
+            "isNameObsolete": false
+        },
+        "AuthProvider__Confluence3LOConfluence3LO": {
+            "memberType": "AuthProvider",
+            "serverRevisionCounter": 149,
+            "lastRetrievedFromServer": null,
+            "isNameObsolete": false
+        },
+        "AuthProvider__GoogleWebDataConnector": {
+            "memberType": "AuthProvider",
+            "serverRevisionCounter": 150,
+            "lastRetrievedFromServer": null,
+            "isNameObsolete": false
+        },
+        "AuthProvider__LinkedInWebDataConnector": {
+            "memberType": "AuthProvider",
+            "serverRevisionCounter": 151,
+            "lastRetrievedFromServer": null,
+            "isNameObsolete": false
+        },
+        "AuthProvider__MicrosoftWebDataConnector": {
+            "memberType": "AuthProvider",
+            "serverRevisionCounter": 152,
+            "lastRetrievedFromServer": null,
+            "isNameObsolete": false
+        },
+        "MktDataConnection__UploadedFiles": {
+            "memberType": "MktDataConnection",
+            "serverRevisionCounter": 154,
+            "lastRetrievedFromServer": null,
+            "isNameObsolete": false
+        },
+        "CustomObject__EngagementAggregation": {
+            "memberType": "CustomObject",
+            "serverRevisionCounter": 174,
+            "lastRetrievedFromServer": null,
+            "isNameObsolete": false
+        },
+        "CustomObject__EngagementAggregation__dll": {
+            "memberType": "CustomObject",
+            "serverRevisionCounter": 175,
+            "lastRetrievedFromServer": null,
+            "isNameObsolete": false
+        },
+        "CustomField__EngagementAggregation.KQ_Id__c": {
+            "memberType": "CustomField",
+            "serverRevisionCounter": 159,
+            "lastRetrievedFromServer": null,
+            "isNameObsolete": false
+        },
+        "CustomField__EngagementAggregation.Id__c": {
+            "memberType": "CustomField",
+            "serverRevisionCounter": 167,
+            "lastRetrievedFromServer": null,
+            "isNameObsolete": false
+        },
+        "CustomField__EngagementAggregation.DataSource__c": {
+            "memberType": "CustomField",
+            "serverRevisionCounter": 168,
+            "lastRetrievedFromServer": null,
+            "isNameObsolete": false
+        },
+        "CustomField__EngagementAggregation.DataSourceObject__c": {
+            "memberType": "CustomField",
+            "serverRevisionCounter": 169,
+            "lastRetrievedFromServer": null,
+            "isNameObsolete": false
+        },
+        "CustomField__EngagementAggregation.LastEngagementTimestamp__c": {
+            "memberType": "CustomField",
+            "serverRevisionCounter": 170,
+            "lastRetrievedFromServer": null,
+            "isNameObsolete": false
+        },
+        "CustomField__EngagementAggregation.LastModifiedBy__c": {
+            "memberType": "CustomField",
+            "serverRevisionCounter": 171,
+            "lastRetrievedFromServer": null,
+            "isNameObsolete": false
+        },
+        "CustomField__EngagementAggregation.LastModifiedDate__c": {
+            "memberType": "CustomField",
+            "serverRevisionCounter": 172,
+            "lastRetrievedFromServer": null,
+            "isNameObsolete": false
+        },
+        "CustomField__EngagementAggregation.KeyQualifier__c": {
+            "memberType": "CustomField",
+            "serverRevisionCounter": 173,
+            "lastRetrievedFromServer": null,
+            "isNameObsolete": false
+        },
+        "ActivationPlatform__cdpactvstrgptnr__Google_Ads": {
+            "memberType": "ActivationPlatform",
+            "serverRevisionCounter": 121,
+            "lastRetrievedFromServer": null,
+            "isNameObsolete": false
+        },
+        "ActivationPlatform__cdpactvstrgptnr__LinkedIn_Advertising": {
+            "memberType": "ActivationPlatform",
+            "serverRevisionCounter": 126,
+            "lastRetrievedFromServer": null,
+            "isNameObsolete": false
+        },
+        "PermissionSetGroup__force__CopilotSalesforceUserPSG": {
+            "memberType": "PermissionSetGroup",
+            "serverRevisionCounter": 248,
+            "lastRetrievedFromServer": null,
+            "isNameObsolete": false
+        },
+        "PermissionSetGroup__force__CopilotSalesforceAdminPSG": {
+            "memberType": "PermissionSetGroup",
+            "serverRevisionCounter": 244,
+            "lastRetrievedFromServer": null,
+            "isNameObsolete": false
+        },
+        "PermissionSetGroup__force__AgentforceServiceAgentUserPsg": {
+            "memberType": "PermissionSetGroup",
+            "serverRevisionCounter": 264,
+            "lastRetrievedFromServer": null,
+            "isNameObsolete": false
+        },
+        "CustomObject__IndividualGDPRState": {
+            "memberType": "CustomObject",
+            "serverRevisionCounter": 114,
+            "lastRetrievedFromServer": null,
+            "isNameObsolete": false
+        },
+        "CustomObject__IndividualGDPRState__dll": {
+            "memberType": "CustomObject",
+            "serverRevisionCounter": 113,
+            "lastRetrievedFromServer": null,
+            "isNameObsolete": false
+        },
+        "CustomField__IndividualGDPRState.Id__c": {
+            "memberType": "CustomField",
+            "serverRevisionCounter": 107,
+            "lastRetrievedFromServer": null,
+            "isNameObsolete": false
+        },
+        "CustomField__IndividualGDPRState.DataSource__c": {
+            "memberType": "CustomField",
+            "serverRevisionCounter": 94,
+            "lastRetrievedFromServer": null,
+            "isNameObsolete": false
+        },
+        "CustomField__IndividualGDPRState.DataSourceObject__c": {
+            "memberType": "CustomField",
+            "serverRevisionCounter": 103,
+            "lastRetrievedFromServer": null,
+            "isNameObsolete": false
+        },
+        "CustomField__IndividualGDPRState.IndividualId__c": {
+            "memberType": "CustomField",
+            "serverRevisionCounter": 98,
+            "lastRetrievedFromServer": null,
+            "isNameObsolete": false
+        },
+        "CustomField__IndividualGDPRState.HasOptedOutProcessing__c": {
+            "memberType": "CustomField",
+            "serverRevisionCounter": 106,
+            "lastRetrievedFromServer": null,
+            "isNameObsolete": false
+        },
+        "CustomField__IndividualGDPRState.OptOutProcessRequestDate__c": {
+            "memberType": "CustomField",
+            "serverRevisionCounter": 96,
+            "lastRetrievedFromServer": null,
+            "isNameObsolete": false
+        },
+        "CustomField__IndividualGDPRState.OptOutProcessRequestCompletionDate__c": {
+            "memberType": "CustomField",
+            "serverRevisionCounter": 105,
+            "lastRetrievedFromServer": null,
+            "isNameObsolete": false
+        },
+        "CustomField__IndividualGDPRState.ShouldForget__c": {
+            "memberType": "CustomField",
+            "serverRevisionCounter": 111,
+            "lastRetrievedFromServer": null,
+            "isNameObsolete": false
+        },
+        "CustomField__IndividualGDPRState.ShouldForgetRequestDate__c": {
+            "memberType": "CustomField",
+            "serverRevisionCounter": 97,
+            "lastRetrievedFromServer": null,
+            "isNameObsolete": false
+        },
+        "CustomField__IndividualGDPRState.ShouldForgetRequestCompletionDate__c": {
+            "memberType": "CustomField",
+            "serverRevisionCounter": 108,
+            "lastRetrievedFromServer": null,
+            "isNameObsolete": false
+        },
+        "CustomField__IndividualGDPRState.SendIndividualData__c": {
+            "memberType": "CustomField",
+            "serverRevisionCounter": 102,
+            "lastRetrievedFromServer": null,
+            "isNameObsolete": false
+        },
+        "CustomField__IndividualGDPRState.SendIndividualDataRequestDate__c": {
+            "memberType": "CustomField",
+            "serverRevisionCounter": 100,
+            "lastRetrievedFromServer": null,
+            "isNameObsolete": false
+        },
+        "CustomField__IndividualGDPRState.SendIndividualDataRequestCompletionDate__c": {
+            "memberType": "CustomField",
+            "serverRevisionCounter": 101,
+            "lastRetrievedFromServer": null,
+            "isNameObsolete": false
+        },
+        "CustomField__IndividualGDPRState.TenantId__c": {
+            "memberType": "CustomField",
+            "serverRevisionCounter": 110,
+            "lastRetrievedFromServer": null,
+            "isNameObsolete": false
+        },
+        "CustomField__IndividualGDPRState.CreatedBy__c": {
+            "memberType": "CustomField",
+            "serverRevisionCounter": 99,
+            "lastRetrievedFromServer": null,
+            "isNameObsolete": false
+        },
+        "CustomField__IndividualGDPRState.CreatedDate__c": {
+            "memberType": "CustomField",
+            "serverRevisionCounter": 104,
+            "lastRetrievedFromServer": null,
+            "isNameObsolete": false
+        },
+        "CustomField__IndividualGDPRState.LastModifiedBy__c": {
+            "memberType": "CustomField",
+            "serverRevisionCounter": 109,
+            "lastRetrievedFromServer": null,
+            "isNameObsolete": false
+        },
+        "CustomField__IndividualGDPRState.LastModifiedDate__c": {
+            "memberType": "CustomField",
+            "serverRevisionCounter": 95,
+            "lastRetrievedFromServer": null,
+            "isNameObsolete": false
+        },
+        "CustomObject__IndividualGDPRState__dlm": {
+            "memberType": "CustomObject",
+            "serverRevisionCounter": 115,
+            "lastRetrievedFromServer": null,
+            "isNameObsolete": false
+        },
+        "ObjectSourceTargetMap__IndividualGDPRState_map_IndividualGDPRState_1778175051681": {
+            "memberType": "ObjectSourceTargetMap",
+            "serverRevisionCounter": 116,
+            "lastRetrievedFromServer": null,
+            "isNameObsolete": false
+        },
+        "PermissionSet__sfdc_chatbot_service_permset": {
+            "memberType": "PermissionSet",
+            "serverRevisionCounter": 265,
+            "lastRetrievedFromServer": null,
+            "isNameObsolete": false
+        },
+        "ActivationPlatform__cdpactvstrgptnr__PremiumPartnerPinterest": {
+            "memberType": "ActivationPlatform",
+            "serverRevisionCounter": 118,
+            "lastRetrievedFromServer": null,
+            "isNameObsolete": false
+        },
+        "ActivationPlatform__cdpactvstrgptnr__PremiumPartnerGam": {
+            "memberType": "ActivationPlatform",
+            "serverRevisionCounter": 119,
+            "lastRetrievedFromServer": null,
+            "isNameObsolete": false
+        },
+        "ActivationPlatform__cdpactvstrgptnr__PremiumPartnerTikTok": {
+            "memberType": "ActivationPlatform",
+            "serverRevisionCounter": 120,
+            "lastRetrievedFromServer": null,
+            "isNameObsolete": false
+        },
+        "ActivationPlatform__cdpactvstrgptnr__Meta_Conversions_API": {
+            "memberType": "ActivationPlatform",
+            "serverRevisionCounter": 122,
+            "lastRetrievedFromServer": null,
+            "isNameObsolete": false
+        },
+        "ActivationPlatform__cdpactvstrgptnr__Snapchat_Conversions_API": {
+            "memberType": "ActivationPlatform",
+            "serverRevisionCounter": 123,
+            "lastRetrievedFromServer": null,
+            "isNameObsolete": false
+        },
+        "ActivationPlatform__cdpactvstrgptnr__LinkedIn_Conversions_API": {
+            "memberType": "ActivationPlatform",
+            "serverRevisionCounter": 124,
+            "lastRetrievedFromServer": null,
+            "isNameObsolete": false
+        },
+        "ActivationPlatform__cdpactvstrgptnr__TikTok_Conversions_API": {
+            "memberType": "ActivationPlatform",
+            "serverRevisionCounter": 125,
+            "lastRetrievedFromServer": null,
+            "isNameObsolete": false
+        },
+        "ActivationPlatform__cdpactvstrgptnr__SnapchatPlatform": {
+            "memberType": "ActivationPlatform",
+            "serverRevisionCounter": 127,
+            "lastRetrievedFromServer": null,
+            "isNameObsolete": false
+        },
+        "ActivationPlatform__cdpactvstrgptnr__AmazonPlatform": {
+            "memberType": "ActivationPlatform",
+            "serverRevisionCounter": 128,
+            "lastRetrievedFromServer": null,
+            "isNameObsolete": false
+        },
+        "ActivationPlatform__cdpactvstrgptnr__dv360Platform": {
+            "memberType": "ActivationPlatform",
+            "serverRevisionCounter": 130,
+            "lastRetrievedFromServer": null,
+            "isNameObsolete": false
+        },
+        "CustomObject__StaticCurrencyRates_Home": {
+            "memberType": "CustomObject",
+            "serverRevisionCounter": 234,
+            "lastRetrievedFromServer": null,
+            "isNameObsolete": false
+        },
+        "CustomObject__StaticCurrencyRates_Home__dll": {
+            "memberType": "CustomObject",
+            "serverRevisionCounter": 200,
+            "lastRetrievedFromServer": null,
+            "isNameObsolete": false
+        },
+        "CustomField__StaticCurrencyRates_Home.KQ_Id__c": {
+            "memberType": "CustomField",
+            "serverRevisionCounter": 228,
+            "lastRetrievedFromServer": null,
+            "isNameObsolete": false
+        },
+        "CustomField__StaticCurrencyRates_Home.Id__c": {
+            "memberType": "CustomField",
+            "serverRevisionCounter": 227,
+            "lastRetrievedFromServer": null,
+            "isNameObsolete": false
+        },
+        "CustomField__StaticCurrencyRates_Home.FromISOCurrencyCode__c": {
+            "memberType": "CustomField",
+            "serverRevisionCounter": 229,
+            "lastRetrievedFromServer": null,
+            "isNameObsolete": false
+        },
+        "CustomField__StaticCurrencyRates_Home.ToISOCurrencyCode__c": {
+            "memberType": "CustomField",
+            "serverRevisionCounter": 232,
+            "lastRetrievedFromServer": null,
+            "isNameObsolete": false
+        },
+        "CustomField__StaticCurrencyRates_Home.RateNumeratorNumber__c": {
+            "memberType": "CustomField",
+            "serverRevisionCounter": 224,
+            "lastRetrievedFromServer": null,
+            "isNameObsolete": false
+        },
+        "CustomField__StaticCurrencyRates_Home.RateDenominatorNumber__c": {
+            "memberType": "CustomField",
+            "serverRevisionCounter": 231,
+            "lastRetrievedFromServer": null,
+            "isNameObsolete": false
+        },
+        "CustomField__StaticCurrencyRates_Home.DataSource__c": {
+            "memberType": "CustomField",
+            "serverRevisionCounter": 194,
+            "lastRetrievedFromServer": null,
+            "isNameObsolete": false
+        },
+        "CustomField__StaticCurrencyRates_Home.DataSourceObject__c": {
+            "memberType": "CustomField",
+            "serverRevisionCounter": 195,
+            "lastRetrievedFromServer": null,
+            "isNameObsolete": false
+        },
+        "CustomField__StaticCurrencyRates_Home.InternalOrganization__c": {
+            "memberType": "CustomField",
+            "serverRevisionCounter": 196,
+            "lastRetrievedFromServer": null,
+            "isNameObsolete": false
+        },
+        "CustomObject__StaticCurrencyRates_Home__dlm": {
+            "memberType": "CustomObject",
+            "serverRevisionCounter": 236,
+            "lastRetrievedFromServer": null,
+            "isNameObsolete": false
+        },
+        "CustomField__StaticCurrencyRates_Home.DataSourceObjectId__c": {
+            "memberType": "CustomField",
+            "serverRevisionCounter": 226,
+            "lastRetrievedFromServer": null,
+            "isNameObsolete": false
+        },
+        "CustomField__StaticCurrencyRates_Home.InternalOrganizationId__c": {
+            "memberType": "CustomField",
+            "serverRevisionCounter": 230,
+            "lastRetrievedFromServer": null,
+            "isNameObsolete": false
+        },
+        "CustomField__StaticCurrencyRates_Home.DataSourceId__c": {
+            "memberType": "CustomField",
+            "serverRevisionCounter": 225,
+            "lastRetrievedFromServer": null,
+            "isNameObsolete": false
+        },
+        "ObjectSourceTargetMap__StaticCurrencyRates_Home_map_StaticCurrencyRates_Home_1778175829382": {
+            "memberType": "ObjectSourceTargetMap",
+            "serverRevisionCounter": 233,
+            "lastRetrievedFromServer": null,
+            "isNameObsolete": false
+        },
+        "CustomObjectBinding__StaticCurrencyRates_Home_CurrencyStaticConversionRateDmo": {
+            "memberType": "CustomObjectBinding",
+            "serverRevisionCounter": 214,
+            "lastRetrievedFromServer": null,
+            "isNameObsolete": false
+        },
+        "AiAuthoringBundle__Opportunity_Agent_1": {
+            "memberType": "AiAuthoringBundle",
+            "serverRevisionCounter": 270,
+            "lastRetrievedFromServer": null,
+            "isNameObsolete": false
+        },
+        "PermissionSet__sfdc_aiplanner_service_permset": {
+            "memberType": "PermissionSet",
+            "serverRevisionCounter": 266,
+            "lastRetrievedFromServer": null,
+            "isNameObsolete": false
+        },
+        "CspTrustedSite__Voice_wss_1778621695176": {
+            "memberType": "CspTrustedSite",
+            "serverRevisionCounter": 267,
+            "lastRetrievedFromServer": null,
+            "isNameObsolete": false
+        },
+        "CspTrustedSite__Voice_https_1778621695166": {
+            "memberType": "CspTrustedSite",
+            "serverRevisionCounter": 268,
+            "lastRetrievedFromServer": null,
+            "isNameObsolete": false
+        },
+        "PermissionSet__Opportunity_Agent303662455_Permissions": {
+            "memberType": "PermissionSet",
+            "serverRevisionCounter": 269,
+            "lastRetrievedFromServer": null,
+            "isNameObsolete": false
+        }
+    }
+}

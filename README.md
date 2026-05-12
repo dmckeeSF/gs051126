@@ -1,43 +1,94 @@
-# Agentforce Create Custom Object Action
+# Agentforce Create Opportunity Action
 
-An Apex Invocable Action for Agentforce that enables dynamic creation of custom object records with flexible field mapping.
+Field Set-based Apex Invocable Actions for Agentforce that enable intelligent Opportunity creation with customer-configurable fields.
 
 ## Overview
 
-This action allows Agentforce agents to create records on any custom object by accepting:
-- Object API name
-- Field values as JSON
+This ISV solution provides two Agentforce actions:
+1. **Create Opportunity** - Creates Opportunities with fields defined in a Field Set
+2. **Get Opportunity Fields** - Returns available fields with metadata for agent discovery
+
+Customers can configure which Opportunity fields are available by modifying the `Agentforce_Create_Fields` Field Set.
 
 ## Files Included
 
-- `CreateCustomObjectAction.cls` - Main invocable action class
-- `CreateCustomObjectAction.cls-meta.xml` - Metadata file
+### Apex Classes
+- `CreateCustomObjectAction.cls` - Main action for creating Opportunities
 - `CreateCustomObjectActionTest.cls` - Comprehensive test class
-- `CreateCustomObjectActionTest.cls-meta.xml` - Test metadata file
+- `GetOpportunityFieldsAction.cls` - Action for field discovery
+- `GetOpportunityFieldsActionTest.cls` - Test class for field discovery
+
+### Field Set
+- `Opportunity.Agentforce_Create_Fields` - Defines available fields for Opportunity creation
 
 ## Usage
 
-### Input Parameters
+### 1. Get Available Fields (Agent Discovery)
 
-- **Object API Name** (required): The API name of the object to create (e.g., `Account`, `CustomObject__c`)
-- **Field Values JSON** (required): JSON string with field API names and values
+The agent first calls `Get Opportunity Fields` to understand what fields are available:
 
-### Example JSON Input
+**Output Example:**
+```json
+[
+  {
+    "apiName": "Name",
+    "label": "Opportunity Name",
+    "fieldType": "STRING",
+    "isRequired": true,
+    "helpText": null,
+    "picklistValues": null
+  },
+  {
+    "apiName": "StageName",
+    "label": "Stage",
+    "fieldType": "PICKLIST",
+    "isRequired": true,
+    "picklistValues": "Prospecting, Qualification, Needs Analysis, Value Proposition, Closed Won, Closed Lost"
+  }
+]
+```
 
+### 2. Create Opportunity
+
+The agent then calls `Create Opportunity` with field values as JSON:
+
+**Input Example:**
 ```json
 {
-  "Name": "Test Account",
-  "Industry": "Technology",
-  "CustomField__c": "Custom Value",
-  "NumberField__c": 100
+  "Name": "Enterprise Deal",
+  "StageName": "Qualification",
+  "CloseDate": "2026-12-31",
+  "Amount": 250000,
+  "Description": "Large enterprise customer opportunity"
 }
 ```
 
-### Output Parameters
+**Output:**
+- `recordId` - ID of the created Opportunity
+- `isSuccess` - Boolean indicating success
+- `errorMessage` - Error details if creation failed
 
-- **Record Id**: ID of the created record
-- **Success**: Boolean indicating success/failure
-- **Error Message**: Error details if creation failed
+## Configuration
+
+### Default Field Set
+
+The package includes a default Field Set with these fields:
+- **Name** (required)
+- **StageName** (required)
+- **CloseDate** (required)
+- Amount
+- Description
+- Type
+- LeadSource
+- NextStep
+
+### Customizing for Your Customers
+
+Each customer can customize the Field Set via Setup:
+1. Go to **Setup → Object Manager → Opportunity → Field Sets**
+2. Edit **Agentforce_Create_Fields**
+3. Add/remove fields as needed
+4. Mark fields as required if necessary
 
 ## Deployment
 
@@ -47,11 +98,20 @@ sf project deploy start --source-dir force-app
 
 ## Features
 
-- Dynamic object and field mapping
-- Automatic type conversion (Boolean, Integer, Date, DateTime, etc.)
-- Comprehensive error handling
-- 100% test coverage
-- Works with any custom or standard object
+- ✅ **Field Set-based configuration** - Declarative, customer-friendly
+- ✅ **ISV-ready** - Packageable and customer-configurable
+- ✅ **Automatic validation** - Validates fields against Field Set
+- ✅ **Type conversion** - Handles Boolean, Integer, Date, DateTime, Decimal
+- ✅ **Picklist discovery** - Returns valid picklist values to agent
+- ✅ **Required field checking** - Validates all required fields are populated
+- ✅ **100% test coverage** - Comprehensive test classes included
+
+## Agent Instructions
+
+When configuring your Agentforce agent, instruct it to:
+1. Call `Get Opportunity Fields` to discover available fields
+2. Ask the user for required field values
+3. Call `Create Opportunity` with the collected values
 
 ## License
 

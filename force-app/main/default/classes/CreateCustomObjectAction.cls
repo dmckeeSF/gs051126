@@ -1,18 +1,17 @@
 /**
- * @description Invocable Apex action for creating custom object records with dynamic fields
+ * @description Invocable Apex action for creating Opportunity records with fields from Field Set
  * @author Claude Code
- * @date 2026-05-11
+ * @date 2026-05-12
  */
 public with sharing class CreateCustomObjectAction {
+
+    private static final String FIELD_SET_NAME = 'Agentforce_Create_Fields';
 
     /**
      * @description Input parameters for the invocable action
      */
     public class CreateRecordInput {
-        @InvocableVariable(label='Object API Name' description='API name of the custom object to create' required=true)
-        public String objectApiName;
-
-        @InvocableVariable(label='Field Values (JSON)' description='JSON string containing field API names and values. Example: {"Name":"Test","CustomField__c":"Value"}' required=true)
+        @InvocableVariable(label='Field Values (JSON)' description='JSON string containing field API names and values. Example: {"Name":"Test Opportunity","StageName":"Prospecting","CloseDate":"2026-12-31"}' required=true)
         public String fieldValuesJson;
     }
 
@@ -31,13 +30,13 @@ public with sharing class CreateCustomObjectAction {
     }
 
     /**
-     * @description Creates a record with dynamic fields
+     * @description Creates an Opportunity record with fields from Field Set
      * @param inputs List of input parameters
      * @return List of output results
      */
     @InvocableMethod(
-        label='Create Custom Object Record'
-        description='Creates a custom object record with dynamic fields provided as JSON'
+        label='Create Opportunity'
+        description='Creates an Opportunity record with fields defined in the Agentforce_Create_Fields Field Set'
         category='Agentforce Actions'
     )
     public static List<CreateRecordOutput> createRecord(List<CreateRecordInput> inputs) {
@@ -49,10 +48,6 @@ public with sharing class CreateCustomObjectAction {
 
             try {
                 // Validate input
-                if (String.isBlank(input.objectApiName)) {
-                    throw new IllegalArgumentException('Object API Name is required');
-                }
-
                 if (String.isBlank(input.fieldValuesJson)) {
                     throw new IllegalArgumentException('Field Values JSON is required');
                 }
@@ -60,32 +55,45 @@ public with sharing class CreateCustomObjectAction {
                 // Parse the JSON field values
                 Map<String, Object> fieldValues = (Map<String, Object>) JSON.deserializeUntyped(input.fieldValuesJson);
 
-                // Create SObject dynamically
-                Schema.SObjectType objectType = Schema.getGlobalDescribe().get(input.objectApiName);
-                if (objectType == null) {
-                    throw new IllegalArgumentException('Object not found: ' + input.objectApiName);
+                // Get allowed fields from Field Set
+                Set<String> allowedFields = getAllowedFieldsFromFieldSet();
+                if (allowedFields.isEmpty()) {
+                    throw new IllegalArgumentException('Field Set "' + FIELD_SET_NAME + '" not found or is empty on Opportunity object');
                 }
 
-                SObject newRecord = objectType.newSObject();
+                // Create Opportunity
+                Opportunity newOpp = new Opportunity();
 
-                // Set field values
-                Map<String, Schema.SObjectField> fieldMap = objectType.getDescribe().fields.getMap();
+                // Get field metadata
+                Map<String, Schema.SObjectField> fieldMap = Schema.SObjectType.Opportunity.fields.getMap();
+
+                // Set field values (only if in Field Set)
                 for (String fieldName : fieldValues.keySet()) {
-                    if (!fieldMap.containsKey(fieldName)) {
-                        throw new IllegalArgumentException('Field not found on object: ' + fieldName);
+                    String fieldNameLower = fieldName.toLowerCase();
+
+                    if (!allowedFields.contains(fieldNameLower)) {
+                        throw new IllegalArgumentException('Field "' + fieldName + '" is not in the configured Field Set');
+                    }
+
+                    if (!fieldMap.containsKey(fieldNameLower)) {
+                        throw new IllegalArgumentException('Field not found on Opportunity: ' + fieldName);
                     }
 
                     Object fieldValue = fieldValues.get(fieldName);
-                    Schema.DisplayType fieldType = fieldMap.get(fieldName).getDescribe().getType();
+                    Schema.SObjectField fieldToken = fieldMap.get(fieldNameLower);
+                    Schema.DisplayType fieldType = fieldToken.getDescribe().getType();
 
                     // Type conversion based on field type
-                    newRecord.put(fieldName, convertFieldValue(fieldValue, fieldType));
+                    newOpp.put(fieldToken, convertFieldValue(fieldValue, fieldType));
                 }
 
-                // Insert the record
-                insert newRecord;
+                // Validate required fields
+                validateRequiredFields(newOpp, allowedFields, fieldMap);
 
-                output.recordId = newRecord.Id;
+                // Insert the record
+                insert newOpp;
+
+                output.recordId = newOpp.Id;
                 output.isSuccess = true;
 
             } catch (Exception e) {
@@ -97,6 +105,52 @@ public with sharing class CreateCustomObjectAction {
         }
 
         return outputs;
+    }
+
+    /**
+     * @description Gets allowed fields from the Field Set
+     * @return Set of field API names (lowercase)
+     */
+    private static Set<String> getAllowedFieldsFromFieldSet() {
+        Set<String> allowedFields = new Set<String>();
+
+        Schema.FieldSet fieldSet = Schema.SObjectType.Opportunity.fieldSets.getMap().get(FIELD_SET_NAME);
+        if (fieldSet != null) {
+            for (Schema.FieldSetMember field : fieldSet.getFields()) {
+                allowedFields.add(field.getFieldPath().toLowerCase());
+            }
+        }
+
+        return allowedFields;
+    }
+
+    /**
+     * @description Validates that all required fields are populated
+     * @param opp The Opportunity record
+     * @param allowedFields Set of allowed field names
+     * @param fieldMap Map of field API names to field tokens
+     */
+    private static void validateRequiredFields(Opportunity opp, Set<String> allowedFields, Map<String, Schema.SObjectField> fieldMap) {
+        List<String> missingFields = new List<String>();
+
+        for (String fieldName : allowedFields) {
+            Schema.SObjectField fieldToken = fieldMap.get(fieldName);
+            if (fieldToken != null) {
+                Schema.DescribeFieldResult fieldDescribe = fieldToken.getDescribe();
+
+                // Check if required and not populated
+                if (!fieldDescribe.isNillable() && !fieldDescribe.isDefaultedOnCreate()) {
+                    Object fieldValue = opp.get(fieldToken);
+                    if (fieldValue == null) {
+                        missingFields.add(fieldDescribe.getLabel());
+                    }
+                }
+            }
+        }
+
+        if (!missingFields.isEmpty()) {
+            throw new IllegalArgumentException('Missing required fields: ' + String.join(missingFields, ', '));
+        }
     }
 
     /**
