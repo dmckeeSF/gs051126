@@ -1,96 +1,94 @@
 # Agentforce Create Opportunity Action
 
-Field Set-based Apex Invocable Actions for Agentforce that enable intelligent Opportunity creation with customer-configurable fields.
+Hybrid Custom Metadata + Field Set solution for Agentforce that enables intelligent Opportunity creation with flexible, multi-team configurations.
 
 ## Overview
 
-This ISV solution provides two Agentforce actions:
-1. **Get Opportunity Fields** - Returns available fields with metadata for agent discovery
-2. **Create Opportunity** - Creates Opportunities with fields defined in a Field Set
+This ISV solution provides two Agentforce actions with support for multiple named configurations:
+1. **Get Opportunity Fields** - Returns available fields with metadata
+2. **Create Opportunity** - Creates Opportunities with validated fields
 
-Customers can configure which Opportunity fields are available by modifying the `Agentforce_Create_Fields` Field Set.
+Each configuration references a Field Set, allowing customers to define different field sets for different teams (e.g., Sales Team, Partner Team).
+
+## Architecture: Hybrid Approach (Option 3)
+
+**Custom Metadata Type** (`Agentforce_Opp_Config__mdt`) stores named configurations:
+- `Label`: User-friendly name (e.g., "Sales Team", "Partner Team")
+- `Field_Set_Name__c`: References an Opportunity Field Set
+- `Description__c`: Configuration purpose
+
+**Field Sets** define the actual fields declaratively.
+
+**Benefits:**
+- ✅ Multiple named configurations for different teams
+- ✅ Field Sets remain declarative and user-friendly
+- ✅ Agent specifies which configuration to use
+- ✅ ISV packageable with customer customization
 
 ## Files Included
 
 ### Apex Classes
-- `CreateCustomObjectAction.cls` - Main action for creating Opportunities
-- `CreateCustomObjectActionTest.cls` - Comprehensive test class
-- `GetOpportunityFieldsAction.cls` - Action for field discovery
-- `GetOpportunityFieldsActionTest.cls` - Test class for field discovery
+- `CreateCustomObjectAction.cls` - Creates Opportunities
+- `CreateCustomObjectActionTest.cls` - Test class
+- `GetOpportunityFieldsAction.cls` - Returns field metadata
+- `GetOpportunityFieldsActionTest.cls` - Test class
+
+### Custom Metadata Type
+- `Agentforce_Opp_Config__mdt` - Configuration object
+- `Agentforce_Opp_Config.Default` - Default configuration record
 
 ### Field Set
-- `Opportunity.Agentforce_Create_Fields` - Defines available fields for Opportunity creation
+- `Opportunity.Agentforce_Create_Fields` - Default field set
 
 ## Usage
 
-### 1. Get Available Fields (Agent Discovery)
+### 1. Get Available Fields
 
-The agent first calls `Get Opportunity Fields` to understand what fields are available:
-
-**Output Example:**
 ```json
-[
-  {
-    "apiName": "Name",
-    "label": "Opportunity Name",
-    "fieldType": "STRING",
-    "isRequired": true,
-    "helpText": null,
-    "picklistValues": null
-  },
-  {
-    "apiName": "StageName",
-    "label": "Stage",
-    "fieldType": "PICKLIST",
-    "isRequired": true,
-    "picklistValues": "Prospecting, Qualification, Needs Analysis, Value Proposition, Closed Won, Closed Lost"
-  }
-]
+Input: {
+  "configurationName": "Default"
+}
+
+Output: {
+  "fieldsJson": "[{\"apiName\":\"Name\",\"label\":\"Opportunity Name\",\"fieldType\":\"STRING\",\"isRequired\":true,...}]",
+  "isSuccess": true
+}
 ```
 
 ### 2. Create Opportunity
 
-The agent then calls `Create Opportunity` with field values as JSON:
-
-**Input Example:**
 ```json
-{
-  "Name": "Enterprise Deal",
-  "StageName": "Qualification",
-  "CloseDate": "2026-12-31",
-  "Amount": 250000,
-  "Description": "Large enterprise customer opportunity"
+Input: {
+  "configurationName": "Default",
+  "fieldValuesJson": "{\"Name\":\"Enterprise Deal\",\"StageName\":\"Qualification\",\"CloseDate\":\"2026-12-31\"}"
+}
+
+Output: {
+  "recordId": "006...",
+  "isSuccess": true
 }
 ```
 
-**Output:**
-- `recordId` - ID of the created Opportunity
-- `isSuccess` - Boolean indicating success
-- `errorMessage` - Error details if creation failed
-
 ## Configuration
 
-### Default Field Set
+### For ISV: Package Default Setup
 
-The package includes a default Field Set with these fields:
-- **Name** (required)
-- **StageName** (required)
-- **CloseDate** (required)
-- Amount
-- Description
-- Type
-- LeadSource
-- NextStep
+Include in your package:
+1. Default CMT record pointing to default Field Set
+2. Default Field Set with standard Opportunity fields
 
-### Customizing for Your Customers
+### For Customers: Add Team-Specific Configs
 
-Each customer can customize the Field Set via Setup:
-1. Go to **Setup → Object Manager → Opportunity → Field Sets**
-2. Edit **Agentforce_Create_Fields**
-3. Add/remove fields as needed (including custom fields)
-4. Mark fields as required if necessary
+1. Go to **Setup → Custom Metadata Types → Agentforce Opportunity Configuration**
+2. Click **Manage Records** → **New**
+3. Create configuration (e.g., "Sales_Team")
+4. Create a Field Set: **Setup → Object Manager → Opportunity → Field Sets**
+5. Link configuration to Field Set
 
-**The agent will automatically discover changes** - no code updates needed!
+**Example Multi-Team Setup:**
+- **Sales_Team** → References `Sales_Opportunity_Fields` Field Set
+- **Partner_Team** → References `Partner_Opportunity_Fields` Field Set
+- **Default** → References `Agentforce_Create_Fields` Field Set
 
 ## Deployment
 
@@ -100,50 +98,23 @@ sf project deploy start --source-dir force-app
 
 ## Features
 
-- ✅ **Field Set-based configuration** - Declarative, customer-friendly
+- ✅ **Multi-team support** - Different configurations for different teams
+- ✅ **Hybrid architecture** - CMT + Field Sets
 - ✅ **ISV-ready** - Packageable and customer-configurable
-- ✅ **Dynamic field discovery** - Agent adapts to each customer's Field Set
-- ✅ **Automatic validation** - Validates fields against Field Set
-- ✅ **Type conversion** - Handles Boolean, Integer, Date, DateTime, Decimal
-- ✅ **Picklist discovery** - Returns valid picklist values to agent
-- ✅ **Required field checking** - Validates all required fields are populated
-- ✅ **Custom field support** - Customers can add their own fields
-- ✅ **100% test coverage** - Comprehensive test classes included
+- ✅ **Dynamic discovery** - Agent adapts to configuration
+- ✅ **Field-level security** - Respects user permissions (`with sharing`)
+- ✅ **Type conversion** - Handles all Salesforce field types
+- ✅ **Picklist discovery** - Returns valid values
+- ✅ **100% test coverage**
 
 ## Agent Instructions
 
-When configuring your Agentforce agent, instruct it to:
-1. Call `Get Opportunity Fields` to discover available fields
-2. Identify which fields are required
-3. Ask the user for required field values
-4. Optionally ask for additional field values
-5. Call `Create Opportunity` with the collected values
-
-Example agent instruction:
 ```
-Before creating an opportunity, always call "Get Opportunity Fields" to see what 
-fields are available and which are required. Use the field labels and help text 
-to ask the user for appropriate values. For picklist fields, present the valid 
-options to the user.
+When creating an opportunity, first call "Get Opportunity Fields" with the 
+appropriate configuration name (e.g., "Sales_Team" or "Default"). Use the 
+returned field metadata to ask the user for values, then call "Create Opportunity" 
+with the same configuration name.
 ```
-
-## Error Handling
-
-The actions return descriptive errors for:
-- Missing required fields
-- Fields not in Field Set
-- Invalid field names
-- Type conversion errors
-- Invalid JSON format
-- Field Set not found
-
-## Why Two Actions?
-
-The two-action pattern enables **dynamic adaptation** to each customer's configuration:
-- Customer A adds custom field `Contract_Term__c` → agent automatically discovers it
-- Customer B customizes Stage picklist values → agent sees the correct options
-- No hard-coded field lists in agent instructions
-- Each customer's agent adapts to their specific Opportunity structure
 
 ## License
 

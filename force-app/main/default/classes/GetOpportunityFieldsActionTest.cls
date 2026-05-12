@@ -11,9 +11,14 @@ private class GetOpportunityFieldsActionTest {
      */
     @IsTest
     static void testGetFieldsSuccess() {
+        // Arrange
+        GetOpportunityFieldsAction.GetFieldsInput input = new GetOpportunityFieldsAction.GetFieldsInput();
+        input.configurationName = 'Default';
+        List<GetOpportunityFieldsAction.GetFieldsInput> inputs = new List<GetOpportunityFieldsAction.GetFieldsInput>{input};
+
         // Act
         Test.startTest();
-        List<GetOpportunityFieldsAction.GetFieldsOutput> outputs = GetOpportunityFieldsAction.getFields();
+        List<GetOpportunityFieldsAction.GetFieldsOutput> outputs = GetOpportunityFieldsAction.getFields(inputs);
         Test.stopTest();
 
         // Assert
@@ -40,9 +45,13 @@ private class GetOpportunityFieldsActionTest {
      */
     @IsTest
     static void testGetFieldsIncludesName() {
+        // Arrange
+        GetOpportunityFieldsAction.GetFieldsInput input = new GetOpportunityFieldsAction.GetFieldsInput();
+        List<GetOpportunityFieldsAction.GetFieldsInput> inputs = new List<GetOpportunityFieldsAction.GetFieldsInput>{input};
+
         // Act
         Test.startTest();
-        List<GetOpportunityFieldsAction.GetFieldsOutput> outputs = GetOpportunityFieldsAction.getFields();
+        List<GetOpportunityFieldsAction.GetFieldsOutput> outputs = GetOpportunityFieldsAction.getFields(inputs);
         Test.stopTest();
 
         // Assert
@@ -69,9 +78,13 @@ private class GetOpportunityFieldsActionTest {
      */
     @IsTest
     static void testGetFieldsIncludesPicklistValues() {
+        // Arrange
+        GetOpportunityFieldsAction.GetFieldsInput input = new GetOpportunityFieldsAction.GetFieldsInput();
+        List<GetOpportunityFieldsAction.GetFieldsInput> inputs = new List<GetOpportunityFieldsAction.GetFieldsInput>{input};
+
         // Act
         Test.startTest();
-        List<GetOpportunityFieldsAction.GetFieldsOutput> outputs = GetOpportunityFieldsAction.getFields();
+        List<GetOpportunityFieldsAction.GetFieldsOutput> outputs = GetOpportunityFieldsAction.getFields(inputs);
         Test.stopTest();
 
         // Assert
@@ -101,9 +114,13 @@ private class GetOpportunityFieldsActionTest {
      */
     @IsTest
     static void testGetFieldsMetadata() {
+        // Arrange
+        GetOpportunityFieldsAction.GetFieldsInput input = new GetOpportunityFieldsAction.GetFieldsInput();
+        List<GetOpportunityFieldsAction.GetFieldsInput> inputs = new List<GetOpportunityFieldsAction.GetFieldsInput>{input};
+
         // Act
         Test.startTest();
-        List<GetOpportunityFieldsAction.GetFieldsOutput> outputs = GetOpportunityFieldsAction.getFields();
+        List<GetOpportunityFieldsAction.GetFieldsOutput> outputs = GetOpportunityFieldsAction.getFields(inputs);
         Test.stopTest();
 
         // Assert

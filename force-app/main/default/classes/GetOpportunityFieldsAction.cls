@@ -5,7 +5,7 @@
  */
 public with sharing class GetOpportunityFieldsAction {
 
-    private static final String FIELD_SET_NAME = 'Agentforce_Create_Fields';
+    private static final String DEFAULT_CONFIG = 'Default';
 
     /**
      * @description Output parameters containing field metadata
@@ -31,6 +31,14 @@ public with sharing class GetOpportunityFieldsAction {
     }
 
     /**
+     * @description Input parameters for the invocable action
+     */
+    public class GetFieldsInput {
+        @InvocableVariable(label='Configuration Name' description='Name of the Agentforce Opportunity Configuration (e.g., "Default", "Sales_Team"). If blank, uses "Default".')
+        public String configurationName;
+    }
+
+    /**
      * @description Output wrapper for the invocable action
      */
     public class GetFieldsOutput {
@@ -45,24 +53,48 @@ public with sharing class GetOpportunityFieldsAction {
     }
 
     /**
-     * @description Gets available Opportunity fields from Field Set
+     * @description Gets available Opportunity fields from Field Set referenced by configuration
+     * @param inputs List of input parameters with configuration name
      * @return List of output results
      */
     @InvocableMethod(
         label='Get Opportunity Fields'
-        description='Returns available Opportunity fields from the Agentforce_Create_Fields Field Set'
+        description='Returns available Opportunity fields based on configuration'
         category='Agentforce Actions'
     )
-    public static List<GetFieldsOutput> getFields() {
+    public static List<GetFieldsOutput> getFields(List<GetFieldsInput> inputs) {
         List<GetFieldsOutput> outputs = new List<GetFieldsOutput>();
         GetFieldsOutput output = new GetFieldsOutput();
         output.isSuccess = false;
 
         try {
+            // Get configuration name
+            String configName = DEFAULT_CONFIG;
+            if (inputs != null && !inputs.isEmpty() && String.isNotBlank(inputs[0].configurationName)) {
+                configName = inputs[0].configurationName;
+            }
+
+            // Look up configuration
+            List<Agentforce_Opp_Config__mdt> configs = [
+                SELECT Field_Set_Name__c, Description__c
+                FROM Agentforce_Opp_Config__mdt
+                WHERE DeveloperName = :configName
+                LIMIT 1
+            ];
+
+            if (configs.isEmpty()) {
+                throw new IllegalArgumentException('Configuration "' + configName + '" not found');
+            }
+
+            String fieldSetName = configs[0].Field_Set_Name__c;
+            if (String.isBlank(fieldSetName)) {
+                throw new IllegalArgumentException('Configuration "' + configName + '" has no Field Set specified');
+            }
+
             // Get Field Set
-            Schema.FieldSet fieldSet = Schema.SObjectType.Opportunity.fieldSets.getMap().get(FIELD_SET_NAME);
+            Schema.FieldSet fieldSet = Schema.SObjectType.Opportunity.fieldSets.getMap().get(fieldSetName);
             if (fieldSet == null) {
-                throw new IllegalArgumentException('Field Set "' + FIELD_SET_NAME + '" not found on Opportunity object');
+                throw new IllegalArgumentException('Field Set "' + fieldSetName + '" not found on Opportunity object');
             }
 
             // Build field metadata

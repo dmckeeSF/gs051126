@@ -13,6 +13,7 @@ private class CreateCustomObjectActionTest {
     static void testCreateOpportunitySuccess() {
         // Arrange
         CreateCustomObjectAction.CreateRecordInput input = new CreateCustomObjectAction.CreateRecordInput();
+        input.configurationName = 'Default';
         input.fieldValuesJson = '{"Name":"Test Opportunity","StageName":"Prospecting","CloseDate":"2026-12-31"}';
 
         List<CreateCustomObjectAction.CreateRecordInput> inputs = new List<CreateCustomObjectAction.CreateRecordInput>{input};

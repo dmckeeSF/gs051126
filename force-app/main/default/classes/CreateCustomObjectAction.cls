@@ -5,12 +5,15 @@
  */
 public with sharing class CreateCustomObjectAction {
 
-    private static final String FIELD_SET_NAME = 'Agentforce_Create_Fields';
+    private static final String DEFAULT_CONFIG = 'Default';
 
     /**
      * @description Input parameters for the invocable action
      */
     public class CreateRecordInput {
+        @InvocableVariable(label='Configuration Name' description='Name of the Agentforce Opportunity Configuration (e.g., "Default", "Sales_Team"). If blank, uses "Default".')
+        public String configurationName;
+
         @InvocableVariable(label='Field Values (JSON)' description='JSON string containing field API names and values. Example: {"Name":"Test Opportunity","StageName":"Prospecting","CloseDate":"2026-12-31"}' required=true)
         public String fieldValuesJson;
     }
@@ -52,13 +55,19 @@ public with sharing class CreateCustomObjectAction {
                     throw new IllegalArgumentException('Field Values JSON is required');
                 }
 
+                // Get configuration name
+                String configName = DEFAULT_CONFIG;
+                if (String.isNotBlank(input.configurationName)) {
+                    configName = input.configurationName;
+                }
+
                 // Parse the JSON field values
                 Map<String, Object> fieldValues = (Map<String, Object>) JSON.deserializeUntyped(input.fieldValuesJson);
 
-                // Get allowed fields from Field Set
-                Set<String> allowedFields = getAllowedFieldsFromFieldSet();
+                // Get allowed fields from configuration
+                Set<String> allowedFields = getAllowedFieldsFromConfig(configName);
                 if (allowedFields.isEmpty()) {
-                    throw new IllegalArgumentException('Field Set "' + FIELD_SET_NAME + '" not found or is empty on Opportunity object');
+                    throw new IllegalArgumentException('Configuration "' + configName + '" not found or Field Set is empty');
                 }
 
                 // Create Opportunity
@@ -108,13 +117,32 @@ public with sharing class CreateCustomObjectAction {
     }
 
     /**
-     * @description Gets allowed fields from the Field Set
+     * @description Gets allowed fields from the configuration's Field Set
+     * @param configName Name of the configuration
      * @return Set of field API names (lowercase)
      */
-    private static Set<String> getAllowedFieldsFromFieldSet() {
+    private static Set<String> getAllowedFieldsFromConfig(String configName) {
         Set<String> allowedFields = new Set<String>();
 
-        Schema.FieldSet fieldSet = Schema.SObjectType.Opportunity.fieldSets.getMap().get(FIELD_SET_NAME);
+        // Look up configuration
+        List<Agentforce_Opp_Config__mdt> configs = [
+            SELECT Field_Set_Name__c
+            FROM Agentforce_Opp_Config__mdt
+            WHERE DeveloperName = :configName
+            LIMIT 1
+        ];
+
+        if (configs.isEmpty()) {
+            return allowedFields;
+        }
+
+        String fieldSetName = configs[0].Field_Set_Name__c;
+        if (String.isBlank(fieldSetName)) {
+            return allowedFields;
+        }
+
+        // Get Field Set
+        Schema.FieldSet fieldSet = Schema.SObjectType.Opportunity.fieldSets.getMap().get(fieldSetName);
         if (fieldSet != null) {
             for (Schema.FieldSetMember field : fieldSet.getFields()) {
                 allowedFields.add(field.getFieldPath().toLowerCase());
