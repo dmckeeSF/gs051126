@@ -1,6 +1,6 @@
 {
     "fileVersion": 0,
-    "serverMaxRevisionCounter": 283,
+    "serverMaxRevisionCounter": 311,
     "sourceMembers": {
         "ActivationPlatform__cdpactvstrgptnr__Meta_Facebook": {
             "memberType": "ActivationPlatform",
@@ -496,7 +496,7 @@
         },
         "AiAuthoringBundle__Opportunity_Agent_1": {
             "memberType": "AiAuthoringBundle",
-            "serverRevisionCounter": 270,
+            "serverRevisionCounter": 310,
             "lastRetrievedFromServer": null,
             "isNameObsolete": false
         },
@@ -526,37 +526,67 @@
         },
         "Profile__Admin": {
             "memberType": "Profile",
-            "serverRevisionCounter": 278,
+            "serverRevisionCounter": 301,
             "lastRetrievedFromServer": null,
             "isNameObsolete": false
         },
         "ApexClass__CreateCustomObjectAction": {
             "memberType": "ApexClass",
-            "serverRevisionCounter": 279,
+            "serverRevisionCounter": 305,
             "lastRetrievedFromServer": null,
             "isNameObsolete": false
         },
         "ApexClass__CreateCustomObjectActionTest": {
             "memberType": "ApexClass",
-            "serverRevisionCounter": 280,
+            "serverRevisionCounter": 306,
             "lastRetrievedFromServer": null,
             "isNameObsolete": false
         },
         "ApexClass__GetOpportunityFieldsAction": {
             "memberType": "ApexClass",
-            "serverRevisionCounter": 281,
+            "serverRevisionCounter": 307,
             "lastRetrievedFromServer": null,
             "isNameObsolete": false
         },
         "ApexClass__GetOpportunityFieldsActionTest": {
             "memberType": "ApexClass",
-            "serverRevisionCounter": 282,
+            "serverRevisionCounter": 308,
             "lastRetrievedFromServer": null,
             "isNameObsolete": false
         },
         "FieldSet__Opportunity.Agentforce_Create_Fields": {
             "memberType": "FieldSet",
             "serverRevisionCounter": 283,
+            "lastRetrievedFromServer": null,
+            "isNameObsolete": false
+        },
+        "PermissionSet__NextGen_1bYRK0000004bIj2AI_Permissions": {
+            "memberType": "PermissionSet",
+            "serverRevisionCounter": 311,
+            "lastRetrievedFromServer": null,
+            "isNameObsolete": false
+        },
+        "CustomField__Agentforce_Opp_Config__mdt.Description__c": {
+            "memberType": "CustomField",
+            "serverRevisionCounter": 302,
+            "lastRetrievedFromServer": null,
+            "isNameObsolete": false
+        },
+        "CustomField__Agentforce_Opp_Config__mdt.Field_Set_Name__c": {
+            "memberType": "CustomField",
+            "serverRevisionCounter": 303,
+            "lastRetrievedFromServer": null,
+            "isNameObsolete": false
+        },
+        "CustomMetadata__Agentforce_Opp_Config.Default": {
+            "memberType": "CustomMetadata",
+            "serverRevisionCounter": 304,
+            "lastRetrievedFromServer": null,
+            "isNameObsolete": false
+        },
+        "CustomObject__Agentforce_Opp_Config__mdt": {
+            "memberType": "CustomObject",
+            "serverRevisionCounter": 309,
             "lastRetrievedFromServer": null,
             "isNameObsolete": false
         }

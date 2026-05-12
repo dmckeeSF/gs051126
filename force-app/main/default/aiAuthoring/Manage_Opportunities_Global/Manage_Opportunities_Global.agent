@@ -1,0 +1,124 @@
+system:
+    instructions: "Global subagent for managing Opportunity creation across multiple agents."
+    messages:
+        welcome: |
+            I'll help you create an Opportunity.
+        error: "Sorry, something went wrong while creating the Opportunity."
+
+config:
+    developer_name: "Manage_Opportunities_Global"
+    default_agent_user: "opportunity_agent@00drk00000tnolt1521784725.ext"
+    agent_label: "Manage Opportunities (Global)"
+    description: "Global subagent for Opportunity creation - can be referenced by other agents"
+    is_global: True
+
+language:
+    default_locale: "en_US"
+    additional_locales: ""
+    all_additional_locales: False
+
+variables:
+    opp_required_fields: mutable object = {}
+        description: "Holds required/needed Opportunity field metadata returned by GetOpportunityFieldsAction (parsed from fieldsJson)."
+    opp_field_values: mutable object = {}
+        description: "Accumulated user-provided values keyed by Opportunity field API name."
+    created_opportunity_id: mutable string = ""
+        description: "Stores the ID of the created Opportunity, when successful."
+
+start_agent manage_opportunities:
+    label: "Manage Opportunities"
+    description: "Help the user create a new Opportunity. First call Get Opportunity Fields to determine which fields are required/needed, then collect those values from the user, and finally call Create Opportunity to create the record."
+
+    reasoning:
+        instructions: ->
+            | You are helping the user create a new Opportunity.
+              Step 1: Call {!@actions.get_opportunity_fields} to retrieve required/needed fields for the Opportunity object and store the list in opp_required_fields.
+              Step 2: For each required or recommended field returned, if {!@variables.opp_field_values["<apiName>"]} is missing, ask a concise question to gather the value. Validate inputs using the field metadata (e.g., date formats as YYYY-MM-DD, currency as numbers, and restrict values to picklist options when provided). Accumulate values in {!@variables.opp_field_values} keyed by field API name.
+              Step 3: When all required fields have values, call {!@actions.create_opportunity} with fieldValuesJson built from {!@variables.opp_field_values}. On success, store the returned record Id in {!@variables.created_opportunity_id} and confirm creation to the user.
+              If creation fails due to validation or other errors, clearly surface the error message, ask the user for corrected values for the specific field(s), update {!@variables.opp_field_values}, and try again when ready.
+        actions:
+            get_opportunity_fields: @actions.get_opportunity_fields
+            create_opportunity: @actions.create_opportunity
+
+    actions:
+        get_opportunity_fields:
+            description: |
+                Returns available Opportunity fields based on configuration
+            label: "Get Opportunity Fields"
+            require_user_confirmation: False
+            include_in_progress_indicator: True
+            progress_indicator_message: "Getting Opportunity fields..."
+            source: "Get_Opportunity_Fields"
+            target: "apex://GetOpportunityFieldsAction"
+
+            inputs:
+                "configurationName": string
+                    description: |
+                      Name of the Agentforce Opportunity Configuration (e.g., "Default", "Sales_Team"). If blank, uses "Default".
+                    label: "Configuration Name"
+                    is_required: False
+                    is_user_input: False
+
+            outputs:
+                "errorMessage": string
+                    description: |
+                      Error message if operation failed
+                    label: "Error Message"
+                    is_displayable: False
+                    filter_from_agent: False
+                "fieldsJson": string
+                    description: |
+                      JSON array of available fields with metadata
+                    label: "Fields (JSON)"
+                    is_displayable: False
+                    filter_from_agent: False
+                "isSuccess": boolean
+                    description: |
+                      Whether the operation was successful
+                    label: "Success"
+                    is_displayable: False
+                    filter_from_agent: False
+
+        create_opportunity:
+            description: |
+                Creates an Opportunity record with fields defined in the Agentforce_Create_Fields Field Set
+            label: "Create Opportunity"
+            require_user_confirmation: False
+            include_in_progress_indicator: True
+            progress_indicator_message: "Creating Opportunity..."
+            source: "Create_Opportunity"
+            target: "apex://CreateCustomObjectAction"
+
+            inputs:
+                "configurationName": string
+                    description: |
+                      Name of the Agentforce Opportunity Configuration (e.g., "Default", "Sales_Team"). If blank, uses "Default".
+                    label: "Configuration Name"
+                    is_required: False
+                    is_user_input: False
+                "fieldValuesJson": string
+                    description: |
+                      JSON string containing field API names and values. Example: {"Name":"Test Opportunity","StageName":"Prospecting","CloseDate":"2026-12-31"}
+                    label: "Field Values (JSON)"
+                    is_required: True
+                    is_user_input: False
+
+            outputs:
+                "errorMessage": string
+                    description: |
+                      Error message if creation failed
+                    label: "Error Message"
+                    is_displayable: True
+                    filter_from_agent: False
+                "isSuccess": boolean
+                    description: |
+                      Whether the record was created successfully
+                    label: "Success"
+                    is_displayable: False
+                    filter_from_agent: False
+                "recordId": string
+                    description: |
+                      ID of the created record
+                    label: "Record Id"
+                    is_displayable: False
+                    filter_from_agent: False
